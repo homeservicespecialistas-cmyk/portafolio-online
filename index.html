@@ -1,95 +1,72 @@
-/* ============================================================
-   content.js — Datos del Portafolio (FINAL)
-   ============================================================ */
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portafolio – Revista 3D Editable</title>
 
-const paginas = [
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
 
-  /* ================================
-     PÁGINA 1 — PORTADA
-     ================================ */
-  {
-    imagen: "imagen/logo.png",
-    titulo: "HOME SERVICE S.A.S",
-    subtitulo: "Especialistas en Mantenimiento y Construcción",
-    texto: "Soluciones técnicas para empresas, hogares y proyectos corporativos."
-  },
+<body>
 
-  /* ================================
-     PÁGINA 2 — Mantenimiento Locativo
-     ================================ */
-  {
-    imagen: "imagen/mantenimiento_locativo.jpg",
-    titulo: "Mantenimiento Locativo Especializado",
-    subtitulo: "Atención técnica, preventiva y correctiva",
-    texto:
-      "Reparaciones de muros, enchapes, filtraciones, humedades, refuerzos menores, ajustes estructurales ligeros y adecuaciones de espacios."
-  },
+  <!-- SONIDO -->
+  <audio id="flipSound" preload="auto">
+    <source src="sounds/page-flip.mp3" type="audio/mpeg">
+  </audio>
 
-  /* ================================
-     PÁGINA 3 — Pintura y Acabados
-     ================================ */
-  {
-    imagen: "imagen/pintura.jpg",
-    titulo: "Pintura Arquitectónica y Acabados",
-    subtitulo: "Interiores y exteriores",
-    texto:
-      "Aplicación de pintura profesional, resanes, estuco, esmaltes, impermeabilización y acabados decorativos según especificación técnica."
-  },
+  <!-- BOTONES SUPERIORES -->
+  <a href="https://wa.me/573057505025" target="_blank"
+     class="fixed-btn whatsapp-btn">WhatsApp</a>
 
-  /* ================================
-     PÁGINA 4 — Plomería y Electricidad
-     ================================ */
-  {
-    imagen: "imagen/plomeria.jpg",
-    imagen: "imagen/electricidad.jpg",
-    titulo: "Plomería y Servicios Eléctricos",
-    subtitulo: "Diagnóstico y reparación certificada",
-    texto:
-      "Instalación y corrección de redes hidráulicas, sanitarias y eléctricas. Cambios de luminarias, breaker, tomacorrientes, tuberías y tableros."
-  },
+  <button class="fixed-btn download-btn"
+          onclick="descargarPDF()">Descargar PDF</button>
 
-  /* ================================
-     PÁGINA 5 — Limpieza Especializada
-     ================================ */
-  {
-    imagen: "imagen/limpieza_alta.jpg",
-    titulo: "Limpieza Especializada",
-    subtitulo: "Zonas técnicas y trabajos en altura",
-    texto:
-      "Limpieza de fachadas, cubiertas, vidrios en altura, estructuras metálicas y canales con equipos certificados."
-  },
+  <button id="editorToggle" class="fixed-btn editor-btn"
+          style="display:none;"></button>
 
-  /* ================================
-     PÁGINA 6 — Obra Civil y Remodelación
-     ================================ */
-  {
-    imagen: "imagen/obra_civil.jpg",
-    titulo: "Obra Civil y Remodelación",
-    subtitulo: "Ejecución de proyectos constructivos",
-    texto:
-      "Construcción, ampliaciones, drywall, cielorrasos, enchapes, adecuaciones arquitectónicas y remodelación general."
-  },
+  <!-- LIBRO -->
+  <div class="book" id="magazine"></div>
 
-  /* ================================
-     PÁGINA 7 — Carpintería y Mobiliario
-     ================================ */
-  {
-    imagen: "imagen/carpinteria.jpg",
-    titulo: "Carpintería y Mantenimiento de Mobiliario",
-    subtitulo: "Fabricación, ajuste y restauración",
-    texto:
-      "Puertas, closets, cocinas, muebles institucionales, mobiliario comercial y piezas especiales según planos."
-  },
+  <!-- CONTROLES INFERIORES -->
+  <div class="controls">
+    <button id="btnPrev" class="ctrl-btn" onclick="prevPage()">« Anterior</button>
+    <button id="btnNext" class="ctrl-btn" onclick="nextPage()">Siguiente »</button>
 
-  /* ================================
-     PÁGINA 8 — Cierre y Contacto
-     ================================ */
-  {
-    imagen: "imagen/contacto.jpg",
-    titulo: "Gracias por Confiar en Nosotros",
-    subtitulo: "Estamos listos para atender su proyecto",
-    texto:
-      "HOME SERVICE S.A.S — Especialistas en mantenimiento, obra civil y remodelación. Cotizaciones y asesoría técnica profesional."
-  }
+    <!-- Botones de layout (solo en edición) -->
+    <input id="importFile" type="file" accept=".json" style="display:none" />
 
-];
+    <button id="btnSave" class="ctrl-btn" style="display:none"
+            onclick="saveLayout()">Guardar</button>
+
+    <button id="btnExport" class="ctrl-btn" style="display:none"
+            onclick="exportLayout()">Exportar</button>
+
+    <button id="btnImport" class="ctrl-btn" style="display:none"
+            onclick="document.getElementById('importFile').click()">Importar</button>
+  </div>
+
+  <!-- CONTENIDO PARA PDF -->
+  <div id="portafolioPDF" style="display:none;"></div>
+
+  <!-- LIBRERÍA PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- CONTENIDO DEL PORTAFOLIO -->
+  <script src="js/content.js"></script>
+
+  <!-- LAYOUT DEL SERVIDOR (opcional) -->
+  <script>
+    window.initialLayoutFromServer = null;
+    fetch('data/layout.json')
+      .then(r => r.ok ? r.json() : null)
+      .then(j => window.initialLayoutFromServer = j)
+      .catch(()=>{});
+  </script>
+
+  <!-- SCRIPT PRINCIPAL -->
+  <script src="js/script.js"></script>
+
+</body>
+</html>
