@@ -1,0 +1,229 @@
+/* =========================
+   styles.css - Portafolio Revista 3D (FINAL FINAL)
+   ========================= */
+
+/* Reset ligero */
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+/* Fondo general */
+html,body { height: 100%; }
+body {
+  background: linear-gradient(180deg,#f7f7f7,#e4e4e4);
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-top: 80px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* -------------------------
+   CONTENEDOR DEL LIBRO
+   (AHORA CON TAMAÑO REVISTA REAL)
+   ------------------------- */
+.book {
+  width: 400px;    /* <——— tamaño final */
+  height: 550px;   /* <——— tamaño final */
+  margin: 40px auto;
+  position: relative;
+  perspective: 2000px;
+  transform-origin: top center;
+  overflow: visible;
+  touch-action: manipulation;
+}
+
+/* Escalado perfecto en celulares */
+@media (max-width: 600px) {
+  .book {
+    transform: scale(calc(100vw / 400));
+    height: calc(550px * (100vw / 400));
+  }
+}
+
+/* -------------------------
+   PÁGINAS
+   ------------------------- */
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  transition: transform 0.9s cubic-bezier(.55,.085,.27,.98), box-shadow 0.5s ease;
+  overflow: hidden;
+  border-radius: 12px;
+
+  background: white;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.06);
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+/* Página volteada */
+.page.flipped {
+  transform: rotateY(-180deg);
+  box-shadow: inset -18px 0 40px rgba(0,0,0,0.12);
+}
+.page:not(.flipped) { z-index: 100; }
+
+/* -------------------------
+   CONTENIDO INTERNO
+   ------------------------- */
+.page-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* -------------------------
+   IMAGEN REDIMENSIONABLE
+   ------------------------- */
+.image-box {
+  position: absolute;
+  left: 5%; top: 5%;
+  width: 90%;
+  aspect-ratio: 4/5;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  touch-action: none;
+  transition: left .12s cubic-bezier(.2,.9,.3,.95),
+              top .12s cubic-bezier(.2,.9,.3,.95),
+              width .12s cubic-bezier(.2,.9,.3,.95),
+              height .12s cubic-bezier(.2,.9,.3,.95);
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* HANDLE */
+.resize-handle {
+  position: absolute;
+  right: -12px; bottom: -12px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: #007bff;
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: nwse-resize;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  z-index: 60;
+}
+
+/* -------------------------
+   CAJAS DE TEXTO MOVIBLES
+   ------------------------- */
+.box {
+  position: absolute;
+  left: 20px;
+  min-width: 120px;
+  min-height: 44px;
+  background: #fff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.00);
+  touch-action: none;
+  cursor: grab;
+  transition: left .12s cubic-bezier(.2,.9,.3,.95),
+              top .12s cubic-bezier(.2,.9,.3,.95);
+  overflow: hidden;
+  user-select: none;
+}
+
+.box:active, .image-box:active { cursor: grabbing; }
+
+.title-box { font-size: 22px; font-weight:700; text-align:center; }
+.subtitle-box { font-size:16px; font-weight:600; }
+.text-box { font-size:14px; line-height:1.4; }
+
+.box .resize-handle { right: -12px; bottom: -12px; }
+
+/* MODO EDICIÓN */
+.editable-outline {
+  border: 2px dashed rgba(0,123,255,0.9) !important;
+  box-shadow: 0 12px 30px rgba(0,123,255,0.06) !important;
+}
+.editable-outline .resize-handle { display: flex !important; }
+
+/* -------------------------
+   BOTONES FIJOS
+   ------------------------- */
+.fixed-btn {
+  position: fixed;
+  top: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  z-index: 3000;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+  border: none;
+  cursor: pointer;
+}
+
+.whatsapp-btn { left: 12px; background:#25d366; }
+.download-btn { right: 12px; background:#007bff; }
+.editor-btn { right:50%; transform:translateX(50%); background:#444; }
+
+/* -------------------------
+   CONTROLES INFERIORES
+   ------------------------- */
+.controls {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 3000;
+}
+
+.ctrl-btn {
+  background: #1287ff;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  cursor: pointer;
+}
+
+/* Buttons hidden until edit */
+#btnSave, #btnExport, #btnImport { display:none; }
+
+/* -------------------------
+   RESPONSIVE EXTRA
+   ------------------------- */
+@media (max-width: 600px) {
+  body { padding-top: 68px; }
+  .controls { bottom: 12px; gap: 8px; }
+  .ctrl-btn { padding: 8px 12px; font-size:14px; }
+  .title-box { font-size: 18px; }
+  .subtitle-box { font-size: 15px; }
+  .text-box { font-size: 13px; }
+}
+
+/* PRINT */
+@media print {
+  .fixed-btn, .controls, #editorToggle, #btnExport, #btnImport, #btnSave {
+    display:none !important;
+  }
+  .book { transform:none !important; margin:0; }
+}
