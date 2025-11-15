@@ -40,7 +40,7 @@ const paginas = [
      PÁGINA 4 — Plomería y Electricidad
      ================================ */
   {
-    imagen: "imagen/plomeria.jpg",
+  /*  imagen: "imagen/plomeria.jpg",*/
     imagen: "imagen/electricidad.jpg",
     titulo: "Plomería y Servicios Eléctricos",
     subtitulo: "Diagnóstico y reparación certificada",
@@ -91,5 +91,6 @@ const paginas = [
     texto:
       "HOME SERVICE S.A.S — Especialistas en mantenimiento, obra civil y remodelación. Cotizaciones y asesoría técnica profesional."
   }
+
 
 ];
